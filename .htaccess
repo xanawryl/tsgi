@@ -1,0 +1,18 @@
+# Aktifkan mesin rewrite
+RewriteEngine On
+
+# Tentukan folder root proyek Anda di server (PENTING!)
+# Sesuaikan '/tsgi/' jika nama folder Anda di htdocs berbeda.
+RewriteBase /
+
+# Aturan untuk menghapus '.php' dari URL (jika Anda mau)
+# RewriteCond %{REQUEST_FILENAME}\.php -f
+# RewriteRule ^(.*)$ $1.php [L]
+
+# Aturan utama: Arahkan semua permintaan ke index.php
+# Kecuali jika permintaan adalah untuk file yang ada (seperti .css, .js, .jpg)
+RewriteCond %{REQUEST_FILENAME} !-f
+# Kecuali jika permintaan adalah untuk direktori yang ada (seperti /assets)
+RewriteCond %{REQUEST_FILENAME} !-d
+# Ambil URL yang diminta dan kirimkan ke index.php sebagai parameter 'url'
+RewriteRule ^(.*)$ index.php?url=$1 [L,QSA]
